@@ -12,7 +12,7 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        'calculator',
+        'body_mass_calculator',
     ]
 
 

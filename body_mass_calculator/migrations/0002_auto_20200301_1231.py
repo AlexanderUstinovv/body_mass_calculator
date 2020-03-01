@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calculator', '0001_initial'),
+        ('body_mass_calculator', '0001_initial'),
     ]
 
     operations = [
