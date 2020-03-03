@@ -20,7 +20,7 @@ class MainPersonData(models.Model):
         (FEMALE, 'Female'),
     )
 
-    person = models.ForeignKey(User, on_delete=models.CASCADE)
+    person = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     name = models.CharField(max_length=15)
     sex = models.CharField(max_length=6, choices=SEX_TYPES)
     age = models.PositiveSmallIntegerField()
