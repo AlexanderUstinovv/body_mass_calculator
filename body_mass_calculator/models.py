@@ -43,5 +43,9 @@ class BodyMassIndex(models.Model):
 def calculate_body_mass_index(sender, instance, **kwargs) -> None:
     user = instance.person
     value = instance.weight / pow((instance.height / 100), 2)
-    body_mass_index = BodyMassIndex(value=value, person=user)
-    body_mass_index.save()
+    previous_data = BodyMassIndex.objects.filter(person=user)
+    if previous_data.exists():
+        previous_data.update(value=value)
+    else:
+        body_mass_index = BodyMassIndex(value=value, person=user)
+        body_mass_index.save()

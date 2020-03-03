@@ -14,6 +14,9 @@ TEST_WEIGHT = 180
 TEST_SEX = MainPersonData.MALE
 TEST_RESULT = Decimal('55.56')
 TEST_WRONG_AGE = 13
+TEST_UPDATE_HEIGHT = 100
+TEST_UPDATE_WEIGHT = 40
+TEST_UPDATE_RESULT = 40
 
 
 def save_test_user(name, email, password) -> User:
@@ -47,8 +50,22 @@ class BodyMassIndexTest(TestCase):
 
 class MainPersonDataTest(TransactionTestCase):
     def test_constraint(self) -> None:
-
         with self.assertRaises(IntegrityError):
             save_test_data(TEST_USER_NAME, TEST_SEX,
                            TEST_WRONG_AGE, TEST_HEIGHT,
                            TEST_WEIGHT)
+
+
+class BodyMassIndexUpdateTest(TransactionTestCase):
+    def setUp(self) -> None:
+        save_test_data(TEST_USER_NAME, TEST_SEX,
+                       TEST_AGE, TEST_HEIGHT, TEST_WEIGHT)
+
+    def update_test(self) -> None:
+        user = User.objects.get_by_natural_key(TEST_USER_NAME)
+        MainPersonData.objects.filter(user=user).update(
+            height=TEST_UPDATE_HEIGHT,
+            weight=TEST_UPDATE_WEIGHT
+        )
+        body_mass_index = BodyMassIndex.objects.get(person=user)
+        self.assertEqual(body_mass_index.value, TEST_UPDATE_RESULT)
