@@ -16,8 +16,8 @@ class MainPersonData(models.Model):
     MALE = 'M'
     FEMALE = 'F'
     SEX_TYPES = (
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
+        (MALE, 'Муж.'),
+        (FEMALE, 'Жен.'),
     )
 
     person = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
