@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 
 from .models import MainPersonData
 
@@ -8,26 +8,18 @@ class MainDataForm(ModelForm):
         model = MainPersonData
         fields = ['name', 'age', 'sex', 'height', 'weight']
 
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get('name')
+        age = cleaned_data.get('age')
+        height = cleaned_data.get('height')
+        weight = cleaned_data.get('weight')
         if len(name) < 1:
-            raise ValueError('Имя не может состоять из одной буквы')
-        return name
-
-    def clean_age(self):
-        age = self.cleaned_data.get('age')
+            self.add_error('name', 'Имя не может состоять из одной буквы')
         if age < 21:
-            raise ValueError('Возраст должен быть больше 20')
-        return age
-
-    def clean_height(self):
-        height = self.cleaned_data.get('height')
+            self.add_error('age', 'Возраст должен быть больше 20')
         if height <= 0:
-            raise ValueError('Рост не может быть равен нулю')
-        return height
-
-    def clean_weight(self):
-        weight = self.cleaned_data('weight')
+            self.add_error('height', 'Рост не может быть равен нулю')
         if weight <= 0:
-            raise ValueError('Вес не может быть равен нулю')
-        return weight
+            self.add_error('weight', 'Вес не может быть равен нулю')
+        return cleaned_data
