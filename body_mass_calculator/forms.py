@@ -6,4 +6,4 @@ from .models import MainPersonData
 class MainDataForm(ModelForm):
     class Meta:
         model = MainPersonData
-        fields = ['name', 'age', 'sex', 'age', 'height', 'weight']
+        fields = ['name', 'age', 'sex', 'height', 'weight']
