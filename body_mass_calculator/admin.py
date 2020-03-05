@@ -1,3 +1,28 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import MainPersonData
+
+
+@admin.register(MainPersonData)
+class MainPersonDataAdmin(admin.ModelAdmin):
+    fields = (
+        'person',
+        'name',
+        'sex',
+        'age',
+        'height',
+        'weight',
+    )
+
+    list_display = (
+        'person',
+        'name',
+        'sex',
+        'age',
+        'height',
+        'weight',
+    )
+
+    readonly_fields = (
+        'person',
+    )
