@@ -20,12 +20,12 @@ class MainPersonData(models.Model):
         (FEMALE, 'Жен.'),
     )
 
-    person = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    name = models.CharField(max_length=15)
-    sex = models.CharField(max_length=6, choices=SEX_TYPES)
-    age = models.PositiveSmallIntegerField()
-    height = models.PositiveSmallIntegerField()
-    weight = models.PositiveSmallIntegerField()
+    person = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, verbose_name='Пользователь')
+    name = models.CharField(max_length=15, verbose_name='Имя')
+    sex = models.CharField(max_length=6, choices=SEX_TYPES, verbose_name='Пол')
+    age = models.PositiveSmallIntegerField(verbose_name='Возраст')
+    height = models.PositiveSmallIntegerField(verbose_name='Рост')
+    weight = models.PositiveSmallIntegerField(verbose_name='Вес')
 
 
 class BodyMassIndex(models.Model):
@@ -35,8 +35,8 @@ class BodyMassIndex(models.Model):
             models.CheckConstraint(check=models.Q(value__gte=0), name='value_gte_0'),
         )
 
-    value = models.DecimalField(max_digits=5, decimal_places=2)
-    person = models.ForeignKey(User, on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Индекс массы тела')
+    person = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
 
 
 @receiver(post_save, sender=MainPersonData, dispatch_uid='calculate_body_mass_index_value')
