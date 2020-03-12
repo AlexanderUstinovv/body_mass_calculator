@@ -12,6 +12,8 @@ class MainPersonData(models.Model):
         constraints = (
             models.CheckConstraint(check=models.Q(age__gte=18), name='age_gte_18'),
         )
+        verbose_name = 'Основные данные пользователя'
+        verbose_name_plural = 'Основные данные пользователей'
 
     MALE = 'M'
     FEMALE = 'F'
@@ -27,6 +29,9 @@ class MainPersonData(models.Model):
     height = models.PositiveSmallIntegerField(verbose_name='Рост')
     weight = models.PositiveSmallIntegerField(verbose_name='Вес')
 
+    def __str__(self):
+        return self.person.name
+
 
 class BodyMassIndex(models.Model):
     class Meta:
@@ -35,8 +40,14 @@ class BodyMassIndex(models.Model):
             models.CheckConstraint(check=models.Q(value__gte=0), name='value_gte_0'),
         )
 
+        verbose_name = 'Индекс массы тела'
+        verbose_name_plural = 'Индекс масс тел'
+
     value = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Индекс массы тела')
     person = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    def __str__(self):
+        return self.person.name
 
 
 @receiver(post_save, sender=MainPersonData, dispatch_uid='calculate_body_mass_index_value')
