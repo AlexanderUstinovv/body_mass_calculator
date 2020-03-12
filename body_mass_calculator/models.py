@@ -30,7 +30,7 @@ class MainPersonData(models.Model):
     weight = models.PositiveSmallIntegerField(verbose_name='Вес')
 
     def __str__(self):
-        return self.person.name
+        return self.person.username
 
 
 class BodyMassIndex(models.Model):
