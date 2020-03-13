@@ -28,6 +28,7 @@ class MainPersonData(models.Model):
     age = models.PositiveSmallIntegerField(verbose_name='Возраст')
     height = models.PositiveSmallIntegerField(verbose_name='Рост')
     weight = models.PositiveSmallIntegerField(verbose_name='Вес')
+    smoking = models.BooleanField(verbose_name='Курение', default=False)
 
     def __str__(self):
         return self.person.username

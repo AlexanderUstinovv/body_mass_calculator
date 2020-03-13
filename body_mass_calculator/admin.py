@@ -12,6 +12,7 @@ class MainPersonDataAdmin(admin.ModelAdmin):
         'age',
         'height',
         'weight',
+        'smoking'
     )
 
     list_display = (

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm
 
 from .models import MainPersonData
 
@@ -6,7 +6,7 @@ from .models import MainPersonData
 class MainDataForm(ModelForm):
     class Meta:
         model = MainPersonData
-        fields = ['name', 'age', 'sex', 'height', 'weight']
+        fields = ['name', 'age', 'sex', 'height', 'weight', 'smoking']
 
     def clean(self):
         cleaned_data = super().clean()
